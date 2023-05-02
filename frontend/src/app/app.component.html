@@ -38,7 +38,7 @@
                 <tr *ngFor="let shipment of shipments">
                     <td>
                      <span class="custom-checkbox">
-                     <input type="checkbox" name="options">
+                     <input type="checkbox" name="options" (change)="onChange(shipment, $event)">
                      <label></label>
                      </span>
                     </td>
@@ -47,9 +47,9 @@
                     <td>{{ shipment.destination }}</td>
                     <td>{{ shipment.createdDate | date : 'MMM d, y' }}</td>
                     <td class="transport-type">
-                        <span *ngIf="shipment.transportType === AIR">✈️</span>
-                        <span *ngIf="shipment.transportType === SEA">🚢</span>
-                        <span *ngIf="shipment.transportType === ROAD">🚚</span>
+                        <span *ngIf="shipment.transportType === 'AIR'">✈️</span>
+                        <span *ngIf="shipment.transportType === 'SEA'">🚢</span>
+                        <span *ngIf="shipment.transportType === 'ROAD'">🚚</span>
                     </td>
                 </tr>
                 </tbody>

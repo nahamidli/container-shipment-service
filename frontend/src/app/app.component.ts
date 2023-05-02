@@ -20,8 +20,13 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.shipments = this.shipmentService.getShipments();
+    this.shipmentService.getShipments().subscribe(value => {
+
+      this.shipments = value
+    });
   }
 
-
+  onChange(shipment: Shipment, event: any) {
+    this.selectedShipment = shipment
+  }
 }

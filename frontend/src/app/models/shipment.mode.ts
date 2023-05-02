@@ -16,7 +16,7 @@ export interface Shipment {
     notifyCustomer: Boolean,
 
     transportType: TransportType,
-    temperatureRange: TemperatureRange
+    temperature: TemperatureRange
 }
 
 export enum TransportType {
@@ -26,7 +26,7 @@ export enum TransportType {
 }
 
 export interface TemperatureRange {
-    id: Number,
+    id?: Number,
     min: Number,
     max: Number
 }

@@ -10,29 +10,30 @@
             </div>
             <table class="table table-striped table-hover">
                 <thead>
-                <tr>
-                    <th>Execution Plan ID</th>
-                    <th>Origin</th>
-                    <th>Destination</th>
-                    <th>Should Notify Customer</th>
-                    <th>Transport Type</th>
-                    <th>Is Fragile Product</th>
-                </tr>
+                    <tr>
+                        <th>Execution Plan ID</th>
+                        <th>Origin</th>
+                        <th>Destination</th>
+                        <th>Should Notify Customer</th>
+                        <th>Transport Type</th>
+                        <th>Is Fragile Product</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>2523423</td>
-                    <td>Frankfurt</td>
-                    <td>Berlin</td>
-                    <td>Yes</td>
-                    <td>No</td>
-                    <td class="transport-type">
-                        <span>✈️</span>
-                    </td>
-                </tr>
+                    <tr *ngFor="let executionplan of executionPlans">
+                        <td>{{ executionplan.id }}</td>
+                        <td>{{ executionplan.origin }}</td>
+                        <td>{{ executionplan.destination }}</td>
+                        <td>{{ executionplan.notifyCustomer }}</td>
+                        <td class="transport-type">
+                            <span *ngIf="executionplan.transportType === 'AIR'">✈️</span>
+                            <span *ngIf="executionplan.transportType === 'SEA'">🚢</span>
+                            <span *ngIf="executionplan.transportType === 'ROAD'">🚚</span>
+                        </td>
+                        <td>{{ executionplan.fragile }}</td>
+                    </tr>
                 </tbody>
             </table>
-
         </div>
     </div>
 </div>

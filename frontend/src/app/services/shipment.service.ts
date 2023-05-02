@@ -1,61 +1,19 @@
 import {Shipment, TransportType} from "../models/shipment.mode";
 import {Injectable} from "@angular/core";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root',
 })
 export class ShipmentService {
 
-    private shipments: Shipment[] = [
-        {
-            id: 562356123,
-            origin: "Frankfurt",
-            destination: "Hamburg",
-            customerId: "512351",
-            createdDate: 1672873600,
-            fragile: true,
-            notifyCustomer: true,
-            transportType: TransportType.AIR,
-            temperatureRange: {
-                id: 1,
-                min: -20,
-                max: -10
-            }
-        },
-        {
-            id: 562356123,
-            origin: "Frankfurt",
-            destination: "Hamburg",
-            customerId: "512351",
-            createdDate: 1672873600,
-            fragile: true,
-            notifyCustomer: true,
-            transportType: TransportType.SEA,
-            temperatureRange: {
-                id: 1,
-                min: -20,
-                max: -10
-            }
-        },
-        {
-            id: 562356123,
-            origin: "Frankfurt",
-            destination: "Hamburg",
-            customerId: "512351",
-            createdDate: 1672873600,
-            fragile: true,
-            notifyCustomer: true,
-            transportType: TransportType.ROAD,
-            temperatureRange: {
-                id: 1,
-                min: -20,
-                max: -10
-            }
-        }
-    ];
+    API_ENDPOINT : string = "http://localhost:8080/shipments"
+    private shipments: Shipment[] = [];
 
-    getShipments(): Shipment[]{
-        return this.shipments;
+    constructor(private http:HttpClient) { }
+
+    getShipments() {
+        return this.http.get<Shipment[]>(this.API_ENDPOINT);
     }
 
     getShipmentById(shipmentId: Number): Shipment | null {
