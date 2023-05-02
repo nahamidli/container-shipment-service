@@ -16,7 +16,7 @@ services:
     image: rabbitmq-publisher  #HINT: to build this docker image, use the Dockerfile which exists in the following folder /docker/rabbitmq-publisher/Dockerfile
     environment:
       RABBITMQ_HOST: rabbitmq
-      PUBLISH_FREQUENCY: 5
+      PUBLISH_FREQUENCY: 60
       depends_on:
         rabbitmq
 
@@ -24,14 +24,14 @@ services:
   #backend:
   #.......
 
-#  backend:
-#    build:
-#      context: ./
-#      dockerfile: Dockerfile
-#    ports:
-#      - "8080:8080"
-#    depends_on:
-#      - rabbitmq-publisher
+  backend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - rabbitmq-publisher
 
   #  backend:
   #    image: backend
