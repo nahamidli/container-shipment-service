@@ -17,7 +17,25 @@ services:
     environment:
       RABBITMQ_HOST: rabbitmq
       PUBLISH_FREQUENCY: 5
+      depends_on:
+        rabbitmq
 
   # Run the backend as docker here
   #backend:
   #.......
+
+#  backend:
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - rabbitmq-publisher
+
+  #  backend:
+  #    image: backend
+  #    ports:
+  #      - "8080:8080"
+  #    depends_on:
+  #      - rabbitmq

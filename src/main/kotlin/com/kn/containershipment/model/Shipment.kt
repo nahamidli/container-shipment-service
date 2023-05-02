@@ -1,9 +1,11 @@
 package com.kn.containershipment.model
 
 import jakarta.persistence.*
-
+@Entity
+@Table
 data class Shipment(
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long = 0,
 
     val origin: String? = null,
@@ -20,21 +22,13 @@ data class Shipment(
 
     val transportType: TransportType? = null,
 
-    val temperatureRange: TemperatureRange? = null
+    @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true, fetch=FetchType.LAZY)
+    @JoinColumn(name = "fk_temperature_range_id")
+    val temperature: TemperatureRange? = null
 )
 
 enum class TransportType {
-    AIR,
     SEA,
+    AIR,
     ROAD
 }
-
-@Entity
-@Table
-data class TemperatureRange(
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long = 0,
-    val min: Int = 0,
-    val max: Int = 0
-)
