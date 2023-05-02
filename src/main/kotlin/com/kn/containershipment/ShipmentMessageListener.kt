@@ -1,29 +1,22 @@
 package com.kn.containershipment
 
-import com.kn.containershipment.config.Config
 import com.kn.containershipment.model.ExecutionPlan
 import com.kn.containershipment.model.ExecutionPlanAction
 import com.kn.containershipment.model.Shipment
 import com.kn.containershipment.model.TemperatureRange
-import com.kn.containershipment.repository.ShipmentRepository
-import com.kn.containershipment.repository.TemperatureRangeRepository
 import com.kn.containershipment.service.ExecutionPlanService
 import com.kn.containershipment.service.PlanTemplateService
-import com.kn.containershipment.service.TemperatureRangeService
+import com.kn.containershipment.service.ShipmentService
 import org.slf4j.LoggerFactory
 import org.springframework.amqp.rabbit.annotation.RabbitListener
 import org.springframework.stereotype.Component
-//import org.springframework.amqp.rabbit.annotation.RabbitListener
 
 
 @Component
-//@DependsOn("myConfig")
 
 class ShipmentMessageListener(private val planTemplateService: PlanTemplateService,
                               private val executionPlanService: ExecutionPlanService,
-                              private val shipmentRepository: ShipmentRepository,
-                              private val temperatureRangeService: TemperatureRangeService,
-                              private val config: Config) {
+                              private val shipmentService: ShipmentService, ) {
 
     private val logger = LoggerFactory.getLogger(javaClass)
 
@@ -39,8 +32,6 @@ class ShipmentMessageListener(private val planTemplateService: PlanTemplateServi
 
     private fun createExecutionPlan(shipment: Shipment) {
         val template = planTemplateService.getDefault() ?: return
-
-        //val temperatureRangeId = temperatureRangeService.save(shipment.temperature!!)
 
         // Create the Execution Plan object by merging the Shipment and Template objects
         val executionPlan = ExecutionPlan(
@@ -67,7 +58,7 @@ class ShipmentMessageListener(private val planTemplateService: PlanTemplateServi
 
         logger.info("Execution Plan created and successfully saved to DB: $executionPlan")
         executionPlanService.save(executionPlan)
-        shipmentRepository.save(shipment)
+        shipmentService.save(shipment)
 
     }
 }

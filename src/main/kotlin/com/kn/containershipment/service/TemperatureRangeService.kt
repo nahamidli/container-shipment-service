@@ -11,5 +11,3 @@ class TemperatureRangeService(private val temperatureRangeRepository: Temperatur
         return savedTemperatureRange.id
     }
 }
-
-
