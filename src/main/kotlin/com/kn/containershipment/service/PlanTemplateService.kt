@@ -15,7 +15,6 @@ class PlanTemplateService(private val templateRepository: TemplateRepository) {
 
     fun get(id: Long) : PlanTemplate? {
         return templateRepository.findById(id).orElse(null)
-       // return templateRepository.findById(id).orElseThrow(RuntimeException("Template with ${id} not found"))
     }
 
     fun getAll(): List<PlanTemplate> {
